@@ -1,411 +1,297 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Солнечный план Дарьи</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --cream:#FFF6EC; --card:#FFFDFA; --sun:#F6B53D; --sun-soft:#FCE2A8;
-    --sage:#8AA978; --sage-soft:#E3EDDB; --coral:#F08A7E; --coral-soft:#FBDED9;
-    --ink:#4A3F35; --ink-soft:#8C7E70; --line:#EFE4D4;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
-  body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;overflow-x:hidden;}
-  h1,h2,h3,h4{font-family:'Comfortaa',cursive;font-weight:600;line-height:1.25;}
-  .wrap{max-width:880px;margin:0 auto;padding:0 22px;}
-
-  /* HERO */
-  .hero{position:relative;text-align:center;padding:60px 22px 44px;
-    background:radial-gradient(120% 90% at 50% -10%, var(--sun-soft) 0%, var(--cream) 60%);overflow:hidden;}
-  .float{position:absolute;font-size:1.5rem;opacity:.5;animation:bob 6s ease-in-out infinite;}
-  .float.a{top:16%;left:9%;} .float.b{top:28%;right:11%;animation-delay:1.5s;}
-  .float.c{bottom:16%;left:15%;animation-delay:3s;} .float.d{bottom:22%;right:16%;animation-delay:2s;}
-  @keyframes bob{0%,100%{transform:translateY(0) rotate(-4deg);}50%{transform:translateY(-12px) rotate(4deg);}}
-
-  /* SUN (SVG) */
-  .sun{width:104px;height:104px;display:block;margin:0 auto 20px;}
-  .sun .rays{transform-box:fill-box;transform-origin:center;animation:spin 30s linear infinite;}
-  .sun .halo{transform-box:fill-box;transform-origin:center;animation:halo 4s ease-in-out infinite;}
-  @keyframes spin{to{transform:rotate(360deg);}}
-  @keyframes halo{0%,100%{opacity:.25;transform:scale(1);}50%{opacity:.5;transform:scale(1.12);}}
-
-  .hero h1{font-size:2.5rem;margin-bottom:10px;position:relative;}
-  .hero .accent{color:var(--sun);}
-  .hero .today{font-family:'Comfortaa',cursive;color:var(--sage);font-weight:600;font-size:.95rem;margin-bottom:14px;}
-  .hero p{color:var(--ink-soft);font-size:1.1rem;max-width:470px;margin:0 auto;position:relative;}
-  .hero .made{margin-top:16px;font-size:.92rem;color:var(--coral);font-weight:600;}
-
-  /* PROGRESS */
-  .progress-card{background:var(--card);border:1px solid var(--line);border-radius:24px;
-    padding:22px 24px;margin-top:28px;box-shadow:0 10px 30px rgba(246,181,61,.12);}
-  .progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
-  .progress-top h3{font-size:1.1rem;}
-  .progress-pct{font-family:'Comfortaa',cursive;font-weight:700;color:var(--sun);font-size:1.3rem;}
-  .bar{height:14px;background:var(--sun-soft);border-radius:20px;overflow:hidden;}
-  .bar-fill{height:100%;width:0;border-radius:20px;background:linear-gradient(90deg,var(--sage),var(--sun));transition:width .5s ease;}
-  .progress-msg{margin-top:12px;font-size:.96rem;color:var(--ink-soft);text-align:center;}
-
-  section{padding:36px 0;}
-  .eyebrow{display:inline-block;font-family:'Comfortaa',cursive;font-size:.78rem;letter-spacing:2px;
-    text-transform:uppercase;color:var(--sage);margin-bottom:8px;font-weight:600;}
-  h2{font-size:1.7rem;margin-bottom:20px;}
-
-  /* REST CARD */
-  .rest{background:linear-gradient(135deg,var(--coral-soft),var(--sun-soft));border-radius:26px;
-    padding:30px 26px;text-align:center;box-shadow:0 12px 30px rgba(240,138,126,.18);}
-  .rest .big{font-size:2rem;margin-bottom:8px;}
-  .rest h2{color:#c85a4d;margin-bottom:12px;}
-  .rest p{color:#6d5249;max-width:560px;margin:0 auto 10px;font-size:1.02rem;}
-  .rest .strong{font-weight:700;color:#b34a3d;}
-
-  /* NOTE */
-  .note{background:var(--card);border:2px dashed var(--coral);border-radius:24px;padding:26px 24px;}
-  .note h2{font-size:1.35rem;color:var(--coral);margin-bottom:6px;}
-  .note p{color:var(--ink-soft);margin-bottom:16px;}
-  .note ul{list-style:none;display:grid;gap:12px;}
-  .note li{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;background:var(--coral-soft);border-radius:16px;}
-  .note li b{color:var(--ink);}
-  .badge{flex:none;width:26px;height:26px;border-radius:50%;background:var(--coral);color:#fff;display:grid;place-items:center;font-size:.9rem;}
-
-  /* MENU OF THE DAY */
-  .menu-card{background:var(--card);border:1px solid var(--line);border-radius:26px;overflow:hidden;
-    box-shadow:0 10px 30px rgba(246,181,61,.12);}
-  .menu-head{background:linear-gradient(135deg,var(--sun-soft),var(--sage-soft));padding:18px 24px;}
-  .menu-head h3{font-size:1.25rem;color:#8a6418;}
-  .menu-head span{font-size:.9rem;color:#6d5249;font-weight:600;}
-  .menu-body{padding:8px 24px 22px;}
-  .meal-row{display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px dashed var(--line);}
-  .meal-row:last-child{border-bottom:none;}
-  .meal-row .mi{flex:none;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:1.3rem;background:var(--sun-soft);}
-  .meal-row .mt{font-family:'Comfortaa',cursive;font-size:.8rem;color:var(--sun);font-weight:600;text-transform:uppercase;letter-spacing:1px;}
-  .meal-row .md{font-size:1.02rem;color:var(--ink);font-weight:600;}
-  .daily-extra{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px;}
-  .extra{border-radius:18px;padding:16px 18px;}
-  .extra .lbl{font-family:'Comfortaa',cursive;font-size:.78rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
-  .extra.tip{background:var(--sage-soft);} .extra.tip .lbl{color:var(--sage);}
-  .extra.fact{background:var(--coral-soft);} .extra.fact .lbl{color:var(--coral);}
-  .extra p{font-size:.95rem;color:var(--ink);}
-
-  /* DOCTOR NOTES */
-  .doc{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:0 8px 24px rgba(138,169,120,.12);}
-  .doc h3{font-size:1.2rem;margin-bottom:6px;color:var(--sage);}
-  .doc .hint{color:var(--ink-soft);font-size:.92rem;margin-bottom:16px;}
-  .field{margin-bottom:14px;}
-  .field label{display:block;font-weight:700;font-size:.92rem;margin-bottom:6px;color:var(--ink);}
-  .field input{width:100%;border:1.5px solid var(--line);border-radius:14px;padding:11px 14px;font-family:'Nunito',sans-serif;font-size:1rem;color:var(--ink);background:var(--cream);}
-  .field input:focus{outline:none;border-color:var(--sage);background:#fff;}
-  .saved-tag{font-size:.85rem;color:var(--sage);font-weight:600;opacity:0;transition:.3s;}
-  .saved-tag.show{opacity:1;}
-
-  /* COLUMNS */
-  .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
-  .panel{background:var(--card);border-radius:24px;padding:24px;border:1px solid var(--line);}
-  .panel.do{box-shadow:0 8px 24px rgba(138,169,120,.14);}
-  .panel.dont{box-shadow:0 8px 24px rgba(240,138,126,.12);}
-  .panel h3{font-size:1.2rem;margin-bottom:16px;}
-  .panel.do h3{color:var(--sage);} .panel.dont h3{color:var(--coral);}
-  .panel ul{list-style:none;display:grid;gap:10px;}
-  .panel li{display:flex;gap:10px;font-size:.98rem;align-items:flex-start;}
-  .tick{flex:none;font-weight:700;} .do .tick{color:var(--sage);} .dont .tick{color:var(--coral);}
-
-  /* SCHEDULE */
-  .slot{display:flex;gap:16px;padding:6px 0;}
-  .slot .icon{flex:none;width:52px;height:52px;border-radius:18px;display:grid;place-items:center;font-size:1.5rem;}
-  .slot .body{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 18px;flex:1;}
-  .slot .time{font-family:'Comfortaa',cursive;font-size:.85rem;color:var(--sun);font-weight:600;}
-  .slot h4{font-size:1.05rem;margin:2px 0 6px;color:var(--ink);}
-  .slot label{display:flex;gap:9px;align-items:flex-start;font-size:.95rem;cursor:pointer;padding:3px 0;color:var(--ink);}
-  .slot input{appearance:none;-webkit-appearance:none;flex:none;width:20px;height:20px;border-radius:7px;border:2px solid var(--sage);margin-top:2px;cursor:pointer;transition:.18s;position:relative;}
-  .slot input:checked{background:var(--sage);border-color:var(--sage);}
-  .slot input:checked::after{content:"✓";color:#fff;position:absolute;inset:0;display:grid;place-items:center;font-size:.8rem;}
-  .slot input:focus-visible{outline:3px solid var(--sun);outline-offset:2px;}
-  .slot label.done{color:var(--ink-soft);text-decoration:line-through;}
-
-  footer{text-align:center;padding:42px 22px 56px;color:var(--ink-soft);}
-  footer .heart{color:var(--coral);font-size:1.5rem;}
-  footer p{max-width:440px;margin:10px auto 0;font-size:.92rem;}
-
-  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
-  .reveal.in{opacity:1;transform:none;}
-
-  @media(max-width:640px){.hero h1{font-size:2rem;}.cols,.daily-extra{grid-template-columns:1fr;}h2{font-size:1.45rem;}.float{display:none;}}
-  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}.reveal{opacity:1;transform:none;}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff2dd">
+  <meta name="description" content="Тёплый ежедневный план восстановления для Дарьи: погода, прогулки, питание, самочувствие и заметки.">
+  <title>Солнечный план Дарьи</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
+  <header class="hero" id="top">
+    <span class="float float-a">🍊</span>
+    <span class="float float-b">🥝</span>
+    <span class="float float-c">🌿</span>
+    <span class="float float-d">🍓</span>
 
-<header class="hero">
-  <span class="float a">🍊</span><span class="float b">🥝</span><span class="float c">🌿</span><span class="float d">🍓</span>
+    <svg class="sun-svg" viewBox="0 0 120 120" role="img" aria-label="Солнышко">
+      <defs>
+        <radialGradient id="sun-gradient" cx="38%" cy="34%" r="70%">
+          <stop offset="0%" stop-color="#FFE48F"/>
+          <stop offset="100%" stop-color="#F6B53D"/>
+        </radialGradient>
+      </defs>
+      <circle class="sun-halo" cx="60" cy="60" r="34" fill="#F6B53D"/>
+      <g class="sun-rays" fill="#F6B53D">
+        <rect x="57" y="6" width="6" height="15" rx="3"/>
+        <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(30 60 60)"/>
+        <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(60 60 60)"/>
+        <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(90 60 60)"/>
+        <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(120 60 60)"/>
+        <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(150 60 60)"/>
+        <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(180 60 60)"/>
+        <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(210 60 60)"/>
+        <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(240 60 60)"/>
+        <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(270 60 60)"/>
+        <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(300 60 60)"/>
+        <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(330 60 60)"/>
+      </g>
+      <circle cx="60" cy="60" r="24" fill="url(#sun-gradient)"/>
+    </svg>
 
-  <svg class="sun" viewBox="0 0 120 120" role="img" aria-label="Солнышко">
-    <defs>
-      <radialGradient id="sg" cx="38%" cy="34%" r="70%">
-        <stop offset="0%" stop-color="#FFE48F"/>
-        <stop offset="100%" stop-color="#F6B53D"/>
-      </radialGradient>
-    </defs>
-    <circle class="halo" cx="60" cy="60" r="34" fill="#F6B53D"/>
-    <g class="rays" fill="#F6B53D">
-      <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(0 60 60)"/>
-      <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(30 60 60)"/>
-      <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(60 60 60)"/>
-      <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(90 60 60)"/>
-      <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(120 60 60)"/>
-      <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(150 60 60)"/>
-      <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(180 60 60)"/>
-      <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(210 60 60)"/>
-      <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(240 60 60)"/>
-      <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(270 60 60)"/>
-      <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(300 60 60)"/>
-      <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(330 60 60)"/>
-    </g>
-    <circle cx="60" cy="60" r="24" fill="url(#sg)"/>
-  </svg>
+    <h1>Привет, <span class="accent">Дарья</span> ☀️</h1>
+    <div class="today" id="today">Сегодня</div>
+    <p class="hero-text">Тёплый план на каждый день: погода, прогулки, питание, самочувствие, вода, заметки врача и спокойное восстановление.</p>
+    <div class="made">Сделано для Дарьи — с теплом, вниманием и любовью 💛</div>
+    <div class="hero-actions">
+      <a class="btn btn-sun" href="#weather">Погода сегодня</a>
+      <a class="btn btn-ghost" href="#menu">Меню</a>
+      <a class="btn btn-ghost" href="#diary">Заметки</a>
+    </div>
 
-  <h1>Привет, <span class="accent">Дарья</span> ☀️</h1>
-  <div class="today" id="today"></div>
-  <p>Это твой тёплый план на каждый день — немного солнца, полезной еды и заботы о себе.</p>
-  <div class="made">Сделано с любовью, чтобы тебе стало лучше 💛</div>
-
-  <div class="wrap" style="padding:0;">
-    <div class="progress-card">
-      <div class="progress-top">
-        <h3>Сегодняшний прогресс</h3>
-        <span class="progress-pct" id="pct">0%</span>
+    <div class="wrap progress-wrap">
+      <div class="card progress-card">
+        <div class="progress-top">
+          <h3>Сегодняшний прогресс</h3>
+          <span class="progress-pct" id="pct">0%</span>
+        </div>
+        <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+        <div class="progress-msg" id="msg">Отметь первое дело — и день начнётся 🌱</div>
       </div>
-      <div class="bar"><div class="bar-fill" id="barFill"></div></div>
-      <div class="progress-msg" id="msg">Отметь первое дело — и день начнётся 🌱</div>
     </div>
-  </div>
-</header>
+  </header>
 
-<main>
-
-  <!-- REST -->
-  <section class="wrap reveal" style="padding-top:14px;">
-    <div class="rest">
-      <div class="big">🛋️💛</div>
-      <h2>Сейчас твоё время отдыхать</h2>
-      <p>У тебя <span class="strong">отпуск</span> — это твоё время восстановиться, а не работать. Пожалуйста, не выходи на склад в эти дни.</p>
-      <p>Ночные смены и тяжёлая работа сильно бьют по организму. А сейчас, с нехваткой витамина D и частыми простудами, телу особенно нужны сон и силы — иначе станет только хуже.</p>
-      <p><span class="strong">Отдых — это не лень, это часть лечения.</span> Так ты поправишься быстрее. Ты заслужила этот покой 🤍</p>
+  <nav class="nav" aria-label="Навигация по странице">
+    <div class="wrap nav-scroll">
+      <a href="#weather">🌦️ Погода</a>
+      <a href="#mood">🌿 Самочувствие</a>
+      <a href="#menu">🍽️ Меню</a>
+      <a href="#health">🩺 Здоровье</a>
+      <a href="#plan">🕊️ День</a>
+      <a href="#diary">📝 Заметки</a>
     </div>
-  </section>
+  </nav>
 
-  <!-- MEDICAL NOTE -->
-  <section class="wrap reveal">
-    <div class="note">
-      <h2>🩺 Сначала важное</h2>
-      <p>Этот план — поддержка, а не лечение. Фрукты и режим помогают организму, но саму причину лечит врач. Три вещи, без которых план не работает:</p>
-      <ul>
-        <li><span class="badge">1</span><span><b>Витамин D — 11, это сильный дефицит.</b> Едой одной его не поднять — нужна добавка D3 в дозе, которую назначит врач. Не подбирай дозу сама.</span></li>
-        <li><span class="badge">2</span><span><b>Капли в нос с детства.</b> Это похоже на привыкание к каплям. Резко бросать нельзя — нужна схема отмены от ЛОРа.</span></li>
-        <li><span class="badge">3</span><span><b>Гайморит лечит ЛОР.</b> Промывания и питание помогают, но назначения должен дать врач.</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- MENU OF THE DAY -->
-  <section class="wrap reveal">
-    <span class="eyebrow">Меняется каждый день</span>
-    <h2>Меню на сегодня 🍽️</h2>
-    <div class="menu-card">
-      <div class="menu-head">
-        <h3 id="menuTitle">Вкусный и полезный день</h3>
-        <span id="menuDate"></span>
+  <main>
+    <section class="wrap reveal compact-top">
+      <div class="rest-card">
+        <div class="rest-icon">🛋️💛</div>
+        <h2>Сейчас твоё время восстановиться</h2>
+        <p>Отдых — это часть восстановления. При гайморите, анемии и сильном дефиците витамина D организму нужны сон, еда, свет и спокойный режим.</p>
+        <p><strong>Маленькие шаги каждый день лучше, чем перегрузка и откат назад.</strong></p>
       </div>
-      <div class="menu-body">
-        <div class="meal-row"><div class="mi">🌅</div><div><div class="mt">Завтрак</div><div class="md" id="mBreakfast"></div></div></div>
-        <div class="meal-row"><div class="mi">☀️</div><div><div class="mt">Обед</div><div class="md" id="mLunch"></div></div></div>
-        <div class="meal-row"><div class="mi">🍓</div><div><div class="mt">Полдник</div><div class="md" id="mSnack"></div></div></div>
-        <div class="meal-row"><div class="mi">🌙</div><div><div class="mt">Ужин</div><div class="md" id="mDinner"></div></div></div>
+    </section>
 
-        <div class="daily-extra">
-          <div class="extra tip"><div class="lbl">💡 Совет дня</div><p id="mTip"></p></div>
-          <div class="extra fact"><div class="lbl">✨ Интересный факт</div><p id="mFact"></p></div>
+    <section class="wrap reveal" id="weather">
+      <span class="eyebrow">Живой блок</span>
+      <h2>Погода и прогулка для Монетного 🌦️</h2>
+      <div class="weather-grid">
+        <div class="card weather-main">
+          <div class="weather-top">
+            <div>
+              <div class="pill pill-sky">ул. Горького 2 · Монетный</div>
+              <h3>Сейчас на улице</h3>
+              <p class="muted" id="weatherText">Загружаю погоду...</p>
+            </div>
+            <div class="weather-right">
+              <div class="weather-icon" id="weatherIcon">🌤️</div>
+              <div class="temp" id="temp">—°</div>
+            </div>
+          </div>
+          <div class="weather-details">
+            <div class="wbox"><span>Ощущается</span><b id="feels">—</b></div>
+            <div class="wbox"><span>Ветер</span><b id="wind">—</b></div>
+            <div class="wbox"><span>Осадки</span><b id="rain">—</b></div>
+            <div class="wbox"><span>Обновлено</span><b id="weatherUpdated">—</b></div>
+          </div>
+          <div class="tiny-row">
+            <button class="btn btn-small btn-sky" id="refreshWeather">Обновить</button>
+            <span class="pill" id="weatherSource">Open-Meteo</span>
+          </div>
+        </div>
+
+        <div class="card walk-card">
+          <h3>🚶‍♀️ Прогулка сегодня</h3>
+          <div class="walk-status" id="walkStatus">Проверяю...</div>
+          <p id="walkAdvice" class="muted">План прогулки подстроится под температуру, ветер и осадки.</p>
+          <div class="tiny-row">
+            <span class="pill pill-sun" id="walkTime">15–20 минут</span>
+            <span class="pill pill-sky" id="walkClothes">по погоде</span>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- DOCTOR NOTES -->
-  <section class="wrap reveal">
-    <span class="eyebrow">От врача</span>
-    <h2>Заметки о назначениях</h2>
-    <div class="doc">
-      <h3>📝 Что сказал доктор</h3>
-      <p class="hint">Запиши сюда — сохранится и не потеряется. Эти заметки остаются на каждый день.</p>
-      <div class="field"><label>Доза витамина D3</label><input type="text" id="noteD" placeholder="например: 5000 МЕ в день, 8 недель"></div>
-      <div class="field"><label>Запись к ЛОРу / капли</label><input type="text" id="noteENT" placeholder="например: приём 15-го, схема отмены капель"></div>
-      <div class="field"><label>Другое</label><input type="text" id="noteOther" placeholder="любые важные заметки"></div>
-      <span class="saved-tag" id="savedTag">Сохранено ✓</span>
-    </div>
-  </section>
-
-  <!-- DO / DONT -->
-  <section class="wrap reveal">
-    <span class="eyebrow">Каждый день</span>
-    <h2>Что делать и чего избегать</h2>
-    <div class="cols">
-      <div class="panel do">
-        <h3>🌿 Делать</h3>
-        <ul>
-          <li><span class="tick">✓</span>Принимать витамин D3 по назначению врача — после еды</li>
-          <li><span class="tick">✓</span>Бывать днём на свету — прогулка 15–20 минут</li>
-          <li><span class="tick">✓</span>Промывать нос солевым раствором — мягко и безопасно</li>
-          <li><span class="tick">✓</span>Пить достаточно воды в течение дня</li>
-          <li><span class="tick">✓</span>Высыпаться — отдых сейчас важнее всего</li>
-          <li><span class="tick">✓</span>Овощи и фрукты — каждый день</li>
-          <li><span class="tick">✓</span>Записаться к ЛОРу по поводу капель</li>
-        </ul>
+    <section class="wrap reveal" id="mood">
+      <span class="eyebrow">Она может менять сама</span>
+      <h2>Как сегодня самочувствие? 🌿</h2>
+      <div class="card">
+        <div class="mood-grid">
+          <button class="mood" data-mood="low"><span>😴</span><b>Нет сил</b><small>мягкий режим, без нагрузки</small></button>
+          <button class="mood" data-mood="normal"><span>🌿</span><b>Нормально</b><small>обычный спокойный день</small></button>
+          <button class="mood" data-mood="good"><span>☀️</span><b>Хорошо</b><small>можно чуть активнее</small></button>
+        </div>
+        <p class="mini-spaced">Выбор влияет на прогулку, подсказки и задачи дня. Никаких оценок — только мягкая настройка плана.</p>
       </div>
-      <div class="panel dont">
-        <h3>🚫 Избегать</h3>
-        <ul>
-          <li><span class="tick">✕</span>Выходить на работу в отпуске — особенно ночные смены</li>
-          <li><span class="tick">✕</span>Капать сосудосуживающие капли без контроля врача</li>
-          <li><span class="tick">✕</span>Назначать себе большие дозы витамина D наугад</li>
-          <li><span class="tick">✕</span>Много сахара и сильно обработанной еды</li>
-          <li><span class="tick">✕</span>Запускать насморк и не долечивать гайморит</li>
-          <li><span class="tick">✕</span>Перегружать себя, пока есть слабость</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- SCHEDULE -->
-  <section class="wrap reveal">
-    <span class="eyebrow">Распорядок дня</span>
-    <h2>Твой день по часам 🕊️</h2>
-    <div class="timeline" id="timeline">
-      <div class="slot">
-        <div class="icon" style="background:var(--sun-soft)">🌅</div>
-        <div class="body">
-          <div class="time">Утро · 7:00–9:00</div><h4>Просыпаемся мягко</h4>
-          <label><input type="checkbox" data-id="m1">Стакан тёплой воды</label>
-          <label><input type="checkbox" data-id="m2">Завтрак: <span data-meal="breakfast"></span></label>
-          <label><input type="checkbox" data-id="m3">Витамин D3 после еды (доза от врача)</label>
+    <section class="wrap reveal" id="menu">
+      <span class="eyebrow">Меняется каждый день</span>
+      <h2>Меню на сегодня 🍽️</h2>
+
+      <div class="card prefs-card">
+        <div class="form-grid">
+          <div class="field">
+            <label>Аллергии и исключения</label>
+            <div class="check-grid" id="allergyGrid"></div>
+          </div>
+          <div>
+            <div class="field">
+              <label>Свои исключения через запятую</label>
+              <input id="customAllergy" placeholder="например: клубника, острое, чеснок">
+            </div>
+            <div class="field">
+              <label>Что нравится / что легче есть</label>
+              <input id="foodLikes" placeholder="например: супы, гречка, курица">
+            </div>
+            <button class="btn btn-full" id="savePrefs">Сохранить и пересобрать меню</button>
+            <span class="saved-tag" id="prefsSaved">Сохранено ✓</span>
+          </div>
         </div>
       </div>
-      <div class="slot">
-        <div class="icon" style="background:var(--sun-soft)">☀️</div>
-        <div class="body">
-          <div class="time">День · 12:00–15:00</div><h4>Свет и силы</h4>
-          <label><input type="checkbox" data-id="d1">Прогулка на свету 15–20 минут</label>
-          <label><input type="checkbox" data-id="d2">Обед: <span data-meal="lunch"></span></label>
-          <label><input type="checkbox" data-id="d3">Вода в течение дня</label>
+
+      <div class="card menu-card">
+        <div class="menu-head">
+          <div>
+            <h3 id="menuTitle">Вкусный и полезный день</h3>
+            <span id="menuDate">Сегодня</span>
+          </div>
+          <button class="btn btn-small btn-ghost" id="resetMenu">Сбросить правки</button>
+        </div>
+        <div class="menu-body">
+          <div class="meal-row" data-meal-row="breakfast"><div class="meal-icon">🌅</div><div><div class="meal-type">Завтрак</div><div class="meal-text" id="mBreakfast"></div></div><button class="btn btn-small btn-ghost" data-edit="breakfast">Изменить</button></div>
+          <div class="meal-row" data-meal-row="lunch"><div class="meal-icon">☀️</div><div><div class="meal-type">Обед</div><div class="meal-text" id="mLunch"></div></div><button class="btn btn-small btn-ghost" data-edit="lunch">Изменить</button></div>
+          <div class="meal-row" data-meal-row="snack"><div class="meal-icon">🍓</div><div><div class="meal-type">Полдник</div><div class="meal-text" id="mSnack"></div></div><button class="btn btn-small btn-ghost" data-edit="snack">Изменить</button></div>
+          <div class="meal-row" data-meal-row="dinner"><div class="meal-icon">🌙</div><div><div class="meal-type">Ужин</div><div class="meal-text" id="mDinner"></div></div><button class="btn btn-small btn-ghost" data-edit="dinner">Изменить</button></div>
+
+          <div class="daily-extra">
+            <div class="extra extra-tip"><div class="extra-label">💡 Совет дня</div><p id="mTip"></p></div>
+            <div class="extra extra-fact"><div class="extra-label">✨ Почему это полезно</div><p id="mFact"></p></div>
+          </div>
         </div>
       </div>
-      <div class="slot">
-        <div class="icon" style="background:var(--coral-soft)">🍓</div>
-        <div class="body">
-          <div class="time">Полдник · 16:00–17:00</div><h4>Витаминная пауза</h4>
-          <label><input type="checkbox" data-id="p1">Полдник: <span data-meal="snack"></span></label>
+    </section>
+
+    <section class="wrap reveal" id="water">
+      <span class="eyebrow">Вода</span>
+      <h2>Мягкий трекер воды 💧</h2>
+      <div class="card">
+        <p class="muted">Отмечай стаканы воды. Если врач ограничил жидкость — следовать врачу.</p>
+        <div class="water-drops" id="waterDrops"></div>
+        <div class="bar"><div class="bar-fill" id="waterFill"></div></div>
+        <div class="tiny-row">
+          <span class="pill pill-sky" id="waterText">0 / 8</span>
+          <button class="btn btn-small btn-ghost" id="resetWater">Сбросить воду</button>
         </div>
       </div>
-      <div class="slot">
-        <div class="icon" style="background:var(--sage-soft)">🌙</div>
-        <div class="body">
-          <div class="time">Вечер · 19:00–20:00</div><h4>Тихий вечер</h4>
-          <label><input type="checkbox" data-id="e1">Ужин: <span data-meal="dinner"></span></label>
-          <label><input type="checkbox" data-id="e2">Промыть нос солевым раствором</label>
+    </section>
+
+    <section class="wrap reveal" id="health">
+      <span class="eyebrow">Важно</span>
+      <h2>Медицинские ориентиры 🩺</h2>
+      <div class="health-grid">
+        <div class="health-card health-alert"><div>🤧</div><h3>Двухсторонний гайморит</h3><p>Нужно наблюдение ЛОРа. Промывания и режим — поддержка, но не замена назначений.</p></div>
+        <div class="health-card health-alert"><div>☀️</div><h3>Витамин D: 11 нг/мл</h3><p>Это сильный дефицит. Дозировку D3 подбирает врач, обычно принимают после еды.</p></div>
+        <div class="health-card health-alert"><div>🩸</div><h3>Анемия</h3><p>Нужна причина анемии и назначение врача. Железо лучше усваивается с витамином C.</p></div>
+      </div>
+      <div class="card danger-note">
+        <h3>🚨 Срочно к врачу, если</h3>
+        <p>Отёк вокруг глаз, сильная головная боль, высокая температура, ухудшение зрения, спутанность, сильная слабость, одышка, боль в груди или резкое ухудшение состояния.</p>
+      </div>
+    </section>
+
+    <section class="wrap reveal">
+      <span class="eyebrow">Каждый день</span>
+      <h2>Что делать и чего избегать</h2>
+      <div class="cols">
+        <div class="panel panel-do">
+          <h3>🌿 Делать</h3>
+          <ul>
+            <li><span>✓</span>Принимать лекарства и витамин D3 только по назначению врача</li>
+            <li><span>✓</span>Бывать днём на свету, если погода позволяет</li>
+            <li><span>✓</span>Промывать нос солевым раствором мягко, если врач разрешил</li>
+            <li><span>✓</span>Есть белок, овощи, источники железа и витамин C</li>
+            <li><span>✓</span>Пить воду и отдыхать без чувства вины</li>
+            <li><span>✓</span>Записывать симптомы и вопросы врачу</li>
+          </ul>
+        </div>
+        <div class="panel panel-dont">
+          <h3>🚫 Избегать</h3>
+          <ul>
+            <li><span>✕</span>Ночные смены и тяжёлая нагрузка во время восстановления</li>
+            <li><span>✕</span>Сосудосуживающие капли без контроля ЛОРа</li>
+            <li><span>✕</span>Самостоятельно подбирать большие дозы витамина D или железа</li>
+            <li><span>✕</span>Чай/кофе сразу после еды при анемии</li>
+            <li><span>✕</span>Игнорировать ухудшение гайморита</li>
+            <li><span>✕</span>Давить на себя, если сегодня нет сил</li>
+          </ul>
         </div>
       </div>
-      <div class="slot">
-        <div class="icon" style="background:var(--sage-soft)">😴</div>
-        <div class="body">
-          <div class="time">Перед сном · 22:00</div><h4>Отдых</h4>
-          <label><input type="checkbox" data-id="s1">Сон 8 часов</label>
-          <label><input type="checkbox" data-id="s2">Без телефона за 30 минут до сна</label>
-        </div>
+    </section>
+
+    <section class="wrap reveal" id="plan">
+      <span class="eyebrow">Распорядок</span>
+      <h2>Твой день по часам 🕊️</h2>
+      <div class="timeline" id="timeline">
+        <div class="slot"><div class="slot-icon sun-bg">🌅</div><div class="slot-body"><div class="slot-time">Утро · 7:00–9:00</div><h4>Мягкий старт</h4><label><input type="checkbox" data-id="m1">Стакан воды</label><label><input type="checkbox" data-id="m2">Завтрак: <span data-meal="breakfast"></span></label><label><input type="checkbox" data-id="m3">Витамин D3/лекарства — только как назначил врач</label></div></div>
+        <div class="slot"><div class="slot-icon sky-bg">☀️</div><div class="slot-body"><div class="slot-time">День · 12:00–15:00</div><h4>Свет и силы</h4><label><input type="checkbox" data-id="d1"><span id="walkTask">Прогулка 15–20 минут по погоде</span></label><label><input type="checkbox" data-id="d2">Обед: <span data-meal="lunch"></span></label><label><input type="checkbox" data-id="d3">Не запивать еду чаем/кофе сразу после еды</label></div></div>
+        <div class="slot"><div class="slot-icon coral-bg">🍓</div><div class="slot-body"><div class="slot-time">Полдник · 16:00–17:00</div><h4>Витаминная пауза</h4><label><input type="checkbox" data-id="p1">Полдник: <span data-meal="snack"></span></label></div></div>
+        <div class="slot"><div class="slot-icon sage-bg">🌙</div><div class="slot-body"><div class="slot-time">Вечер · 19:00–20:00</div><h4>Спокойный вечер</h4><label><input type="checkbox" data-id="e1">Ужин: <span data-meal="dinner"></span></label><label><input type="checkbox" data-id="e2">Промыть нос солевым раствором, если врач разрешил</label></div></div>
+        <div class="slot"><div class="slot-icon lav-bg">😴</div><div class="slot-body"><div class="slot-time">Перед сном · 22:00</div><h4>Отдых</h4><label><input type="checkbox" data-id="s1">Сон 8 часов</label><label><input type="checkbox" data-id="s2">Без телефона за 30 минут до сна</label></div></div>
       </div>
-    </div>
-  </section>
+      <div class="tiny-row"><button class="btn btn-small btn-ghost" id="resetDay">Сбросить галочки за сегодня</button></div>
+    </section>
 
-</main>
+    <section class="wrap reveal" id="diary">
+      <span class="eyebrow">Заметки</span>
+      <h2>Заметки и дневник 📝</h2>
+      <div class="card privacy-card">
+        <p>Заметки сохраняются на этом устройстве. Их можно перенести вручную через резервную копию или скопировать отчёт для врача.</p>
+      </div>
+      <div class="card diary-card">
+        <div class="form-grid">
+          <div class="field"><label>Самочувствие сегодня</label><textarea id="noteFeeling" placeholder="слабость, сон, настроение, температура..."></textarea></div>
+          <div class="field"><label>Симптомы гайморита</label><textarea id="noteSinus" placeholder="заложенность, боль, выделения, давление в лице..."></textarea></div>
+          <div class="field"><label>Назначения врача</label><textarea id="noteDoctor" placeholder="витамин D3, ЛОР, препараты, анализы, схема..."></textarea></div>
+          <div class="field"><label>Вопросы врачу</label><textarea id="noteQuestions" placeholder="что уточнить на приёме..."></textarea></div>
+        </div>
+        <div class="tiny-row">
+          <button class="btn" id="saveSharedNotes">Сохранить</button>
+          <button class="btn btn-sun" id="addDailyLog">Добавить запись за сегодня</button>
+          <button class="btn btn-ghost" id="copyReport">Скопировать отчёт</button>
+          <button class="btn btn-ghost" id="exportJson">Скачать копию</button>
+          <label class="btn btn-ghost btn-small">Импорт<input id="importJson" type="file" accept="application/json" hidden></label>
+          <span class="saved-tag" id="noteSaved">Сохранено ✓</span>
+        </div>
+        <h3 class="history-title">История записей</h3>
+        <div class="log-list" id="logList"></div>
+        <div class="tiny-row"><button class="btn btn-small btn-danger" id="clearLogs">Очистить историю</button></div>
+      </div>
+    </section>
+  </main>
 
-<footer>
-  <div class="heart">💛</div>
-  <p><b>Выздоравливай, Дарья.</b> Отдыхай, ешь вкусно и сходи к врачу с витамином D и каплями — это самое важное. Маленькие шаги каждый день, и станет легче.</p>
-</footer>
+  <footer>
+    <div class="heart">💛</div>
+    <p><b>Выздоравливай, Дарья.</b> Это не медицинское лечение, а удобный план поддержки. Главные решения — только с врачом.</p>
+  </footer>
 
-<script>
-  const months=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
-  const now=new Date();
-  const dayKey=now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate();
-  const dateStr=now.getDate()+' '+months[now.getMonth()];
-  document.getElementById('today').textContent='Сегодня · '+dateStr;
-  document.getElementById('menuDate').textContent=dateStr;
-
-  // ---- daily menus (rotate by day) ----
-  const plans=[
-    {title:'Рыбный солнечный день',breakfast:'Овсянка с ягодами и мёдом',lunch:'Запечённый лосось с овощами',snack:'Апельсин и горсть орехов',dinner:'Тушёные овощи с курицей',
-     tip:'Витамин C из апельсина помогает усваивать железо — ешь фрукты вместе с едой.',fact:'Скумбрия и лосось — одни из самых богатых витамином D продуктов.'},
-    {title:'Тёплый домашний день',breakfast:'Творог с бананом',lunch:'Гречка с тушёной говядиной',snack:'Киви и яблоко',dinner:'Лёгкий овощной суп',
-     tip:'Гречка и говядина — хороший источник железа, полезно при усталости.',fact:'В яичном желтке есть немного витамина D — простой способ добавить его.'},
-    {title:'Лёгкий зелёный день',breakfast:'Омлет с овощами',lunch:'Скумбрия с картофелем и салатом',snack:'Ягоды с йогуртом',dinner:'Салат с фасолью и зеленью',
-     tip:'Не запивай еду чаем или кофе сразу — они мешают усвоению железа.',fact:'Всего 15 минут на летнем солнце дают коже заметную дозу витамина D.'},
-    {title:'Уютный осенний день',breakfast:'Каша с яблоком и корицей',lunch:'Куриный суп с овощами',snack:'Мандарины',dinner:'Запечённая рыба с брокколи',
-     tip:'Брокколи богата витамином C и фолатами — поддержка для иммунитета.',fact:'Печень трески — настоящий рекордсмен по содержанию витамина D.'},
-    {title:'Сытный спокойный день',breakfast:'Бутерброд с яйцом и зеленью',lunch:'Сельдь с отварным картофелем',snack:'Грейпфрут',dinner:'Тушёная чечевица с овощами',
-     tip:'Чечевица — растительный источник железа, ешь её вместе с овощами.',fact:'Витамин D жирорастворимый, поэтому лучше усваивается с жирной пищей.'},
-    {title:'Нежный витаминный день',breakfast:'Сырники со сметаной',lunch:'Лосось с рисом и овощами',snack:'Киви и груша',dinner:'Овощное рагу',
-     tip:'Тёплое питьё и отдых облегчают заложенность носа.',fact:'Витамин D помогает иммунитету — с нормальным уровнем реже болеешь.'}
-  ];
-  const dayOfYear=Math.floor((now-new Date(now.getFullYear(),0,0))/86400000);
-  const plan=plans[dayOfYear%plans.length];
-
-  document.getElementById('menuTitle').textContent=plan.title;
-  document.getElementById('mBreakfast').textContent=plan.breakfast;
-  document.getElementById('mLunch').textContent=plan.lunch;
-  document.getElementById('mSnack').textContent=plan.snack;
-  document.getElementById('mDinner').textContent=plan.dinner;
-  document.getElementById('mTip').textContent=plan.tip;
-  document.getElementById('mFact').textContent=plan.fact;
-  document.querySelector('[data-meal="breakfast"]').textContent=plan.breakfast;
-  document.querySelector('[data-meal="lunch"]').textContent=plan.lunch;
-  document.querySelector('[data-meal="snack"]').textContent=plan.snack;
-  document.querySelector('[data-meal="dinner"]').textContent=plan.dinner;
-
-  // ---- progress ----
-  const boxes=[...document.querySelectorAll('#timeline input')];
-  const total=boxes.length;
-  const barFill=document.getElementById('barFill'),pct=document.getElementById('pct'),msg=document.getElementById('msg');
-  function message(d){if(d===0)return'Отметь первое дело — и день начнётся 🌱';if(d<total/2)return'Хорошее начало, продолжай 🌼';if(d<total)return'Отлично идёшь, почти всё! ☀️';return'Ты сделала всё на сегодня — умница! 💛';}
-  function render(){const d=boxes.filter(b=>b.checked).length;const p=Math.round(d/total*100);barFill.style.width=p+'%';pct.textContent=p+'%';msg.textContent=message(d);}
-
-  function safeGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
-  function safeSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
-
-  // ---- daily storage (auto-resets each new day) ----
-  const todayStore='dasha_day_'+dayKey;
-  let dayState={};try{dayState=JSON.parse(safeGet(todayStore)||'{}');}catch(e){dayState={};}
-  boxes.forEach(b=>{
-    const id=b.dataset.id;
-    if(dayState[id]){b.checked=true;b.closest('label').classList.add('done');}
-    b.addEventListener('change',()=>{
-      b.closest('label').classList.toggle('done',b.checked);
-      dayState[id]=b.checked;safeSet(todayStore,JSON.stringify(dayState));render();
-    });
-  });
-  render();
-
-  // ---- doctor notes (persist across days) ----
-  const savedTag=document.getElementById('savedTag');let tagTimer;
-  ['noteD','noteENT','noteOther'].forEach(id=>{
-    const el=document.getElementById(id);
-    el.value=safeGet('dasha_'+id)||'';
-    el.addEventListener('input',()=>{safeSet('dasha_'+id,el.value);savedTag.classList.add('show');clearTimeout(tagTimer);tagTimer=setTimeout(()=>savedTag.classList.remove('show'),1500);});
-  });
-
-  // ---- reveal ----
-  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-</script>
+  <div class="toast" id="toast">Готово</div>
+  <script src="assets/js/menu-data.js" defer></script>
+  <script src="assets/js/app.js" defer></script>
 </body>
 </html>
