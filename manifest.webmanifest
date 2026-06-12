@@ -1,0 +1,12 @@
+{
+  "name": "Солнечный план Дарьи",
+  "short_name": "План Дарьи",
+  "description": "Ежедневный план восстановления: погода, прогулки, питание, вода и заметки.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fff5e9",
+  "theme_color": "#fff2dd",
+  "lang": "ru",
+  "icons": []
+}
