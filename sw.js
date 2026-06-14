@@ -1,30 +1,18 @@
-const CACHE_NAME = 'darya-care-v5';
-const ASSETS = [
-  './',
-  './index.html',
-  './assets/css/styles.css',
-  './assets/js/menu-data.js',
-  './assets/js/app.js',
-  './manifest.webmanifest'
-];
-
-self.addEventListener('install', event => {
-  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
-});
+// Сайт переехал на https://daria.vosiev.com
+// Этот сервис-воркер самоликвидируется: чистит кэш и отписывается,
+// чтобы у вернувшихся посетителей открылась актуальная страница (без старого кэша).
+self.addEventListener('install', () => self.skipWaiting());
 
 self.addEventListener('activate', event => {
-  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)))).then(() => self.clients.claim()));
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.map(k => caches.delete(k)));
+    await self.clients.claim();
+    try { await self.registration.unregister(); } catch (e) {}
+    const clients = await self.clients.matchAll({ type: 'window' });
+    clients.forEach(c => { try { c.navigate(c.url); } catch (e) {} });
+  })());
 });
 
-self.addEventListener('fetch', event => {
-  const requestUrl = new URL(event.request.url);
-  if (requestUrl.hostname.includes('api.open-meteo.com')) {
-    event.respondWith(fetch(event.request).catch(() => caches.match('./index.html')));
-    return;
-  }
-  event.respondWith(caches.match(event.request).then(cached => cached || fetch(event.request).then(response => {
-    const copy = response.clone();
-    caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
-    return response;
-  }).catch(() => caches.match('./index.html'))));
-});
+// Без кэша — всё идёт напрямую в сеть.
+self.addEventListener('fetch', () => {});

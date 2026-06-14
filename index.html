@@ -1,297 +1,67 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#fff2dd">
-  <meta name="description" content="Тёплый ежедневный план восстановления для Дарьи: погода, прогулки, питание, самочувствие и заметки.">
-  <title>Солнечный план Дарьи</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="assets/css/styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#FFF6EC">
+<meta name="robots" content="noindex">
+<title>Сайт обновлён · Солнечный план Дарьи</title>
+<link rel="canonical" href="https://daria.vosiev.com">
+<!-- через 6 секунд мягко перенаправим на новый сайт -->
+<meta http-equiv="refresh" content="6; url=https://daria.vosiev.com">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#FFF6EC;--card:#FFFDFA;--sun:#F6B53D;--sun-soft:#FCE2A8;--sun-deep:#B07F1F;--sage:#8AA978;--ink:#4A3F35;--ink-soft:#8C7E70;--line:#EFE4D4}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:radial-gradient(120% 90% at 50% -10%,var(--sun-soft) 0%,var(--cream) 60%);color:var(--ink);min-height:100vh;display:grid;place-items:center;padding:24px;overflow:hidden}
+.card{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:40px 30px;max-width:440px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(246,181,61,.22);position:relative;z-index:1;animation:pop .6s cubic-bezier(.2,.8,.2,1)}
+@keyframes pop{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
+h1{font-family:'Comfortaa',cursive;font-size:1.6rem;margin:18px 0 8px}
+.accent{color:var(--sun)}
+p{color:var(--ink-soft);font-size:1.05rem;line-height:1.6;margin-bottom:8px}
+.btn{display:inline-flex;align-items:center;gap:8px;margin-top:20px;border:none;cursor:pointer;border-radius:16px;padding:15px 26px;font-family:'Nunito',sans-serif;font-weight:800;font-size:1.05rem;color:#fff;background:var(--sun);box-shadow:0 8px 22px rgba(246,181,61,.4);text-decoration:none;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(246,181,61,.55)}
+.alt{display:block;margin-top:14px;font-size:.85rem;color:var(--ink-soft)}
+.alt a{color:var(--sun-deep);font-weight:700}
+.count{margin-top:16px;font-size:.82rem;color:var(--ink-soft)}
+.sun-svg{width:96px;height:96px;display:block;margin:0 auto}
+.sun-svg .rays{transform-box:fill-box;transform-origin:center;animation:spin 28s linear infinite}
+.sun-svg .halo{transform-box:fill-box;transform-origin:center;animation:halo 4s ease-in-out infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes halo{0%,100%{opacity:.25;transform:scale(1)}50%{opacity:.5;transform:scale(1.12)}}
+.motes{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.motes i{position:absolute;bottom:-12px;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle,#FCE2A8,#F6B53D);opacity:.6;animation:rise linear infinite}
+@keyframes rise{0%{transform:translateY(0) scale(.6);opacity:0}12%{opacity:.7}100%{transform:translateY(-100vh) scale(1);opacity:0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
 </head>
 <body>
-  <header class="hero" id="top">
-    <span class="float float-a">🍊</span>
-    <span class="float float-b">🥝</span>
-    <span class="float float-c">🌿</span>
-    <span class="float float-d">🍓</span>
-
-    <svg class="sun-svg" viewBox="0 0 120 120" role="img" aria-label="Солнышко">
-      <defs>
-        <radialGradient id="sun-gradient" cx="38%" cy="34%" r="70%">
-          <stop offset="0%" stop-color="#FFE48F"/>
-          <stop offset="100%" stop-color="#F6B53D"/>
-        </radialGradient>
-      </defs>
-      <circle class="sun-halo" cx="60" cy="60" r="34" fill="#F6B53D"/>
-      <g class="sun-rays" fill="#F6B53D">
-        <rect x="57" y="6" width="6" height="15" rx="3"/>
-        <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(30 60 60)"/>
-        <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(60 60 60)"/>
-        <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(90 60 60)"/>
-        <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(120 60 60)"/>
-        <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(150 60 60)"/>
-        <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(180 60 60)"/>
-        <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(210 60 60)"/>
-        <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(240 60 60)"/>
-        <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(270 60 60)"/>
-        <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(300 60 60)"/>
-        <rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(330 60 60)"/>
-      </g>
-      <circle cx="60" cy="60" r="24" fill="url(#sun-gradient)"/>
-    </svg>
-
-    <h1>Привет, <span class="accent">Дарья</span> ☀️</h1>
-    <div class="today" id="today">Сегодня</div>
-    <p class="hero-text">Тёплый план на каждый день: погода, прогулки, питание, самочувствие, вода, заметки врача и спокойное восстановление.</p>
-    <div class="made">Сделано для Дарьи — с теплом, вниманием и любовью 💛</div>
-    <div class="hero-actions">
-      <a class="btn btn-sun" href="#weather">Погода сегодня</a>
-      <a class="btn btn-ghost" href="#menu">Меню</a>
-      <a class="btn btn-ghost" href="#diary">Заметки</a>
-    </div>
-
-    <div class="wrap progress-wrap">
-      <div class="card progress-card">
-        <div class="progress-top">
-          <h3>Сегодняшний прогресс</h3>
-          <span class="progress-pct" id="pct">0%</span>
-        </div>
-        <div class="bar"><div class="bar-fill" id="barFill"></div></div>
-        <div class="progress-msg" id="msg">Отметь первое дело — и день начнётся 🌱</div>
-      </div>
-    </div>
-  </header>
-
-  <nav class="nav" aria-label="Навигация по странице">
-    <div class="wrap nav-scroll">
-      <a href="#weather">🌦️ Погода</a>
-      <a href="#mood">🌿 Самочувствие</a>
-      <a href="#menu">🍽️ Меню</a>
-      <a href="#health">🩺 Здоровье</a>
-      <a href="#plan">🕊️ День</a>
-      <a href="#diary">📝 Заметки</a>
-    </div>
-  </nav>
-
-  <main>
-    <section class="wrap reveal compact-top">
-      <div class="rest-card">
-        <div class="rest-icon">🛋️💛</div>
-        <h2>Сейчас твоё время восстановиться</h2>
-        <p>Отдых — это часть восстановления. При гайморите, анемии и сильном дефиците витамина D организму нужны сон, еда, свет и спокойный режим.</p>
-        <p><strong>Маленькие шаги каждый день лучше, чем перегрузка и откат назад.</strong></p>
-      </div>
-    </section>
-
-    <section class="wrap reveal" id="weather">
-      <span class="eyebrow">Живой блок</span>
-      <h2>Погода и прогулка для Монетного 🌦️</h2>
-      <div class="weather-grid">
-        <div class="card weather-main">
-          <div class="weather-top">
-            <div>
-              <div class="pill pill-sky">ул. Горького 2 · Монетный</div>
-              <h3>Сейчас на улице</h3>
-              <p class="muted" id="weatherText">Загружаю погоду...</p>
-            </div>
-            <div class="weather-right">
-              <div class="weather-icon" id="weatherIcon">🌤️</div>
-              <div class="temp" id="temp">—°</div>
-            </div>
-          </div>
-          <div class="weather-details">
-            <div class="wbox"><span>Ощущается</span><b id="feels">—</b></div>
-            <div class="wbox"><span>Ветер</span><b id="wind">—</b></div>
-            <div class="wbox"><span>Осадки</span><b id="rain">—</b></div>
-            <div class="wbox"><span>Обновлено</span><b id="weatherUpdated">—</b></div>
-          </div>
-          <div class="tiny-row">
-            <button class="btn btn-small btn-sky" id="refreshWeather">Обновить</button>
-            <span class="pill" id="weatherSource">Open-Meteo</span>
-          </div>
-        </div>
-
-        <div class="card walk-card">
-          <h3>🚶‍♀️ Прогулка сегодня</h3>
-          <div class="walk-status" id="walkStatus">Проверяю...</div>
-          <p id="walkAdvice" class="muted">План прогулки подстроится под температуру, ветер и осадки.</p>
-          <div class="tiny-row">
-            <span class="pill pill-sun" id="walkTime">15–20 минут</span>
-            <span class="pill pill-sky" id="walkClothes">по погоде</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="wrap reveal" id="mood">
-      <span class="eyebrow">Она может менять сама</span>
-      <h2>Как сегодня самочувствие? 🌿</h2>
-      <div class="card">
-        <div class="mood-grid">
-          <button class="mood" data-mood="low"><span>😴</span><b>Нет сил</b><small>мягкий режим, без нагрузки</small></button>
-          <button class="mood" data-mood="normal"><span>🌿</span><b>Нормально</b><small>обычный спокойный день</small></button>
-          <button class="mood" data-mood="good"><span>☀️</span><b>Хорошо</b><small>можно чуть активнее</small></button>
-        </div>
-        <p class="mini-spaced">Выбор влияет на прогулку, подсказки и задачи дня. Никаких оценок — только мягкая настройка плана.</p>
-      </div>
-    </section>
-
-    <section class="wrap reveal" id="menu">
-      <span class="eyebrow">Меняется каждый день</span>
-      <h2>Меню на сегодня 🍽️</h2>
-
-      <div class="card prefs-card">
-        <div class="form-grid">
-          <div class="field">
-            <label>Аллергии и исключения</label>
-            <div class="check-grid" id="allergyGrid"></div>
-          </div>
-          <div>
-            <div class="field">
-              <label>Свои исключения через запятую</label>
-              <input id="customAllergy" placeholder="например: клубника, острое, чеснок">
-            </div>
-            <div class="field">
-              <label>Что нравится / что легче есть</label>
-              <input id="foodLikes" placeholder="например: супы, гречка, курица">
-            </div>
-            <button class="btn btn-full" id="savePrefs">Сохранить и пересобрать меню</button>
-            <span class="saved-tag" id="prefsSaved">Сохранено ✓</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card menu-card">
-        <div class="menu-head">
-          <div>
-            <h3 id="menuTitle">Вкусный и полезный день</h3>
-            <span id="menuDate">Сегодня</span>
-          </div>
-          <button class="btn btn-small btn-ghost" id="resetMenu">Сбросить правки</button>
-        </div>
-        <div class="menu-body">
-          <div class="meal-row" data-meal-row="breakfast"><div class="meal-icon">🌅</div><div><div class="meal-type">Завтрак</div><div class="meal-text" id="mBreakfast"></div></div><button class="btn btn-small btn-ghost" data-edit="breakfast">Изменить</button></div>
-          <div class="meal-row" data-meal-row="lunch"><div class="meal-icon">☀️</div><div><div class="meal-type">Обед</div><div class="meal-text" id="mLunch"></div></div><button class="btn btn-small btn-ghost" data-edit="lunch">Изменить</button></div>
-          <div class="meal-row" data-meal-row="snack"><div class="meal-icon">🍓</div><div><div class="meal-type">Полдник</div><div class="meal-text" id="mSnack"></div></div><button class="btn btn-small btn-ghost" data-edit="snack">Изменить</button></div>
-          <div class="meal-row" data-meal-row="dinner"><div class="meal-icon">🌙</div><div><div class="meal-type">Ужин</div><div class="meal-text" id="mDinner"></div></div><button class="btn btn-small btn-ghost" data-edit="dinner">Изменить</button></div>
-
-          <div class="daily-extra">
-            <div class="extra extra-tip"><div class="extra-label">💡 Совет дня</div><p id="mTip"></p></div>
-            <div class="extra extra-fact"><div class="extra-label">✨ Почему это полезно</div><p id="mFact"></p></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="wrap reveal" id="water">
-      <span class="eyebrow">Вода</span>
-      <h2>Мягкий трекер воды 💧</h2>
-      <div class="card">
-        <p class="muted">Отмечай стаканы воды. Если врач ограничил жидкость — следовать врачу.</p>
-        <div class="water-drops" id="waterDrops"></div>
-        <div class="bar"><div class="bar-fill" id="waterFill"></div></div>
-        <div class="tiny-row">
-          <span class="pill pill-sky" id="waterText">0 / 8</span>
-          <button class="btn btn-small btn-ghost" id="resetWater">Сбросить воду</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="wrap reveal" id="health">
-      <span class="eyebrow">Важно</span>
-      <h2>Медицинские ориентиры 🩺</h2>
-      <div class="health-grid">
-        <div class="health-card health-alert"><div>🤧</div><h3>Двухсторонний гайморит</h3><p>Нужно наблюдение ЛОРа. Промывания и режим — поддержка, но не замена назначений.</p></div>
-        <div class="health-card health-alert"><div>☀️</div><h3>Витамин D: 11 нг/мл</h3><p>Это сильный дефицит. Дозировку D3 подбирает врач, обычно принимают после еды.</p></div>
-        <div class="health-card health-alert"><div>🩸</div><h3>Анемия</h3><p>Нужна причина анемии и назначение врача. Железо лучше усваивается с витамином C.</p></div>
-      </div>
-      <div class="card danger-note">
-        <h3>🚨 Срочно к врачу, если</h3>
-        <p>Отёк вокруг глаз, сильная головная боль, высокая температура, ухудшение зрения, спутанность, сильная слабость, одышка, боль в груди или резкое ухудшение состояния.</p>
-      </div>
-    </section>
-
-    <section class="wrap reveal">
-      <span class="eyebrow">Каждый день</span>
-      <h2>Что делать и чего избегать</h2>
-      <div class="cols">
-        <div class="panel panel-do">
-          <h3>🌿 Делать</h3>
-          <ul>
-            <li><span>✓</span>Принимать лекарства и витамин D3 только по назначению врача</li>
-            <li><span>✓</span>Бывать днём на свету, если погода позволяет</li>
-            <li><span>✓</span>Промывать нос солевым раствором мягко, если врач разрешил</li>
-            <li><span>✓</span>Есть белок, овощи, источники железа и витамин C</li>
-            <li><span>✓</span>Пить воду и отдыхать без чувства вины</li>
-            <li><span>✓</span>Записывать симптомы и вопросы врачу</li>
-          </ul>
-        </div>
-        <div class="panel panel-dont">
-          <h3>🚫 Избегать</h3>
-          <ul>
-            <li><span>✕</span>Ночные смены и тяжёлая нагрузка во время восстановления</li>
-            <li><span>✕</span>Сосудосуживающие капли без контроля ЛОРа</li>
-            <li><span>✕</span>Самостоятельно подбирать большие дозы витамина D или железа</li>
-            <li><span>✕</span>Чай/кофе сразу после еды при анемии</li>
-            <li><span>✕</span>Игнорировать ухудшение гайморита</li>
-            <li><span>✕</span>Давить на себя, если сегодня нет сил</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="wrap reveal" id="plan">
-      <span class="eyebrow">Распорядок</span>
-      <h2>Твой день по часам 🕊️</h2>
-      <div class="timeline" id="timeline">
-        <div class="slot"><div class="slot-icon sun-bg">🌅</div><div class="slot-body"><div class="slot-time">Утро · 7:00–9:00</div><h4>Мягкий старт</h4><label><input type="checkbox" data-id="m1">Стакан воды</label><label><input type="checkbox" data-id="m2">Завтрак: <span data-meal="breakfast"></span></label><label><input type="checkbox" data-id="m3">Витамин D3/лекарства — только как назначил врач</label></div></div>
-        <div class="slot"><div class="slot-icon sky-bg">☀️</div><div class="slot-body"><div class="slot-time">День · 12:00–15:00</div><h4>Свет и силы</h4><label><input type="checkbox" data-id="d1"><span id="walkTask">Прогулка 15–20 минут по погоде</span></label><label><input type="checkbox" data-id="d2">Обед: <span data-meal="lunch"></span></label><label><input type="checkbox" data-id="d3">Не запивать еду чаем/кофе сразу после еды</label></div></div>
-        <div class="slot"><div class="slot-icon coral-bg">🍓</div><div class="slot-body"><div class="slot-time">Полдник · 16:00–17:00</div><h4>Витаминная пауза</h4><label><input type="checkbox" data-id="p1">Полдник: <span data-meal="snack"></span></label></div></div>
-        <div class="slot"><div class="slot-icon sage-bg">🌙</div><div class="slot-body"><div class="slot-time">Вечер · 19:00–20:00</div><h4>Спокойный вечер</h4><label><input type="checkbox" data-id="e1">Ужин: <span data-meal="dinner"></span></label><label><input type="checkbox" data-id="e2">Промыть нос солевым раствором, если врач разрешил</label></div></div>
-        <div class="slot"><div class="slot-icon lav-bg">😴</div><div class="slot-body"><div class="slot-time">Перед сном · 22:00</div><h4>Отдых</h4><label><input type="checkbox" data-id="s1">Сон 8 часов</label><label><input type="checkbox" data-id="s2">Без телефона за 30 минут до сна</label></div></div>
-      </div>
-      <div class="tiny-row"><button class="btn btn-small btn-ghost" id="resetDay">Сбросить галочки за сегодня</button></div>
-    </section>
-
-    <section class="wrap reveal" id="diary">
-      <span class="eyebrow">Заметки</span>
-      <h2>Заметки и дневник 📝</h2>
-      <div class="card privacy-card">
-        <p>Заметки сохраняются на этом устройстве. Их можно перенести вручную через резервную копию или скопировать отчёт для врача.</p>
-      </div>
-      <div class="card diary-card">
-        <div class="form-grid">
-          <div class="field"><label>Самочувствие сегодня</label><textarea id="noteFeeling" placeholder="слабость, сон, настроение, температура..."></textarea></div>
-          <div class="field"><label>Симптомы гайморита</label><textarea id="noteSinus" placeholder="заложенность, боль, выделения, давление в лице..."></textarea></div>
-          <div class="field"><label>Назначения врача</label><textarea id="noteDoctor" placeholder="витамин D3, ЛОР, препараты, анализы, схема..."></textarea></div>
-          <div class="field"><label>Вопросы врачу</label><textarea id="noteQuestions" placeholder="что уточнить на приёме..."></textarea></div>
-        </div>
-        <div class="tiny-row">
-          <button class="btn" id="saveSharedNotes">Сохранить</button>
-          <button class="btn btn-sun" id="addDailyLog">Добавить запись за сегодня</button>
-          <button class="btn btn-ghost" id="copyReport">Скопировать отчёт</button>
-          <button class="btn btn-ghost" id="exportJson">Скачать копию</button>
-          <label class="btn btn-ghost btn-small">Импорт<input id="importJson" type="file" accept="application/json" hidden></label>
-          <span class="saved-tag" id="noteSaved">Сохранено ✓</span>
-        </div>
-        <h3 class="history-title">История записей</h3>
-        <div class="log-list" id="logList"></div>
-        <div class="tiny-row"><button class="btn btn-small btn-danger" id="clearLogs">Очистить историю</button></div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="heart">💛</div>
-    <p><b>Выздоравливай, Дарья.</b> Это не медицинское лечение, а удобный план поддержки. Главные решения — только с врачом.</p>
-  </footer>
-
-  <div class="toast" id="toast">Готово</div>
-  <script src="assets/js/menu-data.js" defer></script>
-  <script src="assets/js/app.js" defer></script>
+<div class="motes" id="motes" aria-hidden="true"></div>
+<div class="card">
+  <svg class="sun-svg" viewBox="0 0 120 120" role="img" aria-label="Солнышко">
+    <defs><radialGradient id="sg" cx="38%" cy="34%" r="70%"><stop offset="0%" stop-color="#FFE48F"/><stop offset="100%" stop-color="#F6B53D"/></radialGradient></defs>
+    <circle class="halo" cx="60" cy="60" r="34" fill="#F6B53D"/>
+    <g class="rays" fill="#F6B53D"><rect x="57" y="6" width="6" height="15" rx="3"/><rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(30 60 60)"/><rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(60 60 60)"/><rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(90 60 60)"/><rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(120 60 60)"/><rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(150 60 60)"/><rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(180 60 60)"/><rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(210 60 60)"/><rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(240 60 60)"/><rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(270 60 60)"/><rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(300 60 60)"/><rect x="57" y="6" width="6" height="15" rx="3" transform="rotate(330 60 60)"/></g>
+    <circle cx="60" cy="60" r="24" fill="url(#sg)"/>
+  </svg>
+  <h1>Сайт <span class="accent">обновлён</span> ✨</h1>
+  <p>«Солнечный план Дарьи» переехал на новый адрес — там свежий дизайн, забота о смене и перекусах, заметки и тёплый ИИ-помощник «Луч» 💛</p>
+  <a class="btn" href="https://daria.vosiev.com">Перейти на новый сайт ☀️</a>
+  <span class="alt">или открой: <a href="https://daria.vosiev.com">daria.vosiev.com</a> · <a href="https://lecheniya-app.vercel.app">lecheniya-app.vercel.app</a></span>
+  <div class="count" id="count">Перенаправляю автоматически через 6 секунд…</div>
+</div>
+<script>
+// освобождаем старый кэш и сервис-воркер этого первого сайта,
+// чтобы у всех точно открывалась новая версия
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister()})}).catch(function(){});
+}
+if(window.caches&&caches.keys){caches.keys().then(function(ks){ks.forEach(function(k){caches.delete(k)})}).catch(function(){});}
+// плавающие солнечные частицы
+(function(){var m=document.getElementById('motes');if(!m)return;for(var i=0;i<16;i++){var d=document.createElement('i');d.style.left=(Math.random()*100)+'%';d.style.animationDuration=(7+Math.random()*7)+'s';d.style.animationDelay=(-Math.random()*12)+'s';var s=(5+Math.random()*5).toFixed(1)+'px';d.style.width=s;d.style.height=s;m.appendChild(d);}})();
+// обратный отсчёт + надёжный редирект (на случай, если meta-refresh заблокирован)
+var left=6,el=document.getElementById('count');
+var t=setInterval(function(){left--;if(el)el.textContent='Перенаправляю автоматически через '+left+' сек…';if(left<=0){clearInterval(t);location.replace('https://daria.vosiev.com');}},1000);
+</script>
 </body>
 </html>
